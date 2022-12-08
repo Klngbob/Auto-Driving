@@ -1,4 +1,4 @@
 <launch>
-    <node pkg="rviz" type="rviz" name="rviz" />
-    <node pkg="lidar_localization" type="test_frame_node" name="test_frame_node" ouput="screen" />
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find lidar_localization)/rviz/test_frame.rviz" />
+    <node pkg="lidar_localization" type="test_frame_node" name="test_frame_node" output="screen" />
 </launch>
