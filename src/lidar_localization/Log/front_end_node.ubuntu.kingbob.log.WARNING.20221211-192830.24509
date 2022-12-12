@@ -1,0 +1,5 @@
+Log file created at: 2022/12/11 19:28:30
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W20221211 19:28:30.181304 24509 front_end.cpp:55] 文件夹/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data未创建成功!
