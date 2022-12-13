@@ -3,14 +3,15 @@
 */
 
 #include "lidar_localization/front_end/front_end_flow.hpp"
-
+#include "lidar_localization/tools/file_manager.hpp"
+#include "lidar_localization/global_definition/global_definition.h"
 #include "glog/logging.h"
 
 namespace lidar_localization {
 FrontEndFlow::FrontEndFlow(ros::NodeHandle& nh) {
     this->cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/kitti/velo/pointcloud", 100000);
     this->imu_sub_ptr_ = std::make_shared<IMUSubscriber>(nh, "/kitti/oxts/imu", 1000000);
-    // this->velocity_sub_ptr_ = std::make_shared<VelocitySubscriber>(nh, "/kitti/oxts/gps/vel", 1000000);
+    this->velocity_sub_ptr_ = std::make_shared<VelocitySubscriber>(nh, "/kitti/oxts/gps/vel", 1000000);
     this->gnss_sub_ptr_ = std::make_shared<GNSSSubscriber>(nh, "/kitti/oxts/gps/fix", 1000000);
     this->lidar_to_imu_ptr_ = std::make_shared<TFListener>(nh, "velo_link", "imu_link");
 
@@ -29,7 +30,6 @@ FrontEndFlow::FrontEndFlow(ros::NodeHandle& nh) {
 
 bool FrontEndFlow::Run() {
     this->ReadData();
-
     if(!this->InitCalibration())
         return false;
     
@@ -40,8 +40,10 @@ bool FrontEndFlow::Run() {
         if(!ValidData())
             continue;
         this->UpdateGNSSOdometry();
-        if(this->UpdateLaserOdometry())
+        if(this->UpdateLaserOdometry()) {
             this->PublishData();
+            this->SaveTrajectory();
+        }
     }
 
     return true;
@@ -57,7 +59,7 @@ bool FrontEndFlow::ReadData() {
 
 
     this->imu_sub_ptr_->ParseData(unsynced_imu_);
-    // this->velocity_sub_ptr_->ParseData(unsynced_vel_);
+    this->velocity_sub_ptr_->ParseData(unsynced_vel_);
     this->gnss_sub_ptr_->ParseData(unsynced_gnss_);
 
     if(this->cloud_data_buff_.size() == 0)
@@ -65,8 +67,7 @@ bool FrontEndFlow::ReadData() {
     
     double cloud_time = this->cloud_data_buff_.front().time;
     bool valid_imu = IMUData::SyncData(unsynced_imu_, this->imu_data_buff_, cloud_time);
-    bool valid_velocity;
-    // bool valid_velocity = VelocityData::SyncData(unsynced_vel_, this->velocity_data_buff_, cloud_time);
+    bool valid_velocity = VelocityData::SyncData(unsynced_vel_, this->velocity_data_buff_, cloud_time);
     bool valid_gnss = GNSSData::SyncData(unsynced_gnss_, this->gnss_data_buff_, cloud_time);
 
     static bool sensor_inited = false;
@@ -174,6 +175,36 @@ bool FrontEndFlow::PublishData() {
 
     if(this->front_end_ptr_->GetNewLocalMap(this->local_map_ptr_)) {
         this->local_map_pub_ptr_->Publish(this->local_map_ptr_);
+    }
+
+    return true;
+}
+
+bool FrontEndFlow::SaveTrajectory() {
+    static std::ofstream ground_truth, laser_odom;
+    static bool is_file_created = false;
+    if(!is_file_created) {
+        if(!FileManager::CreateDirectory(WORK_SPACE_PATH + "/slam_data/trajectory"))
+            return false;
+        if(!FileManager::CreateFile(ground_truth, WORK_SPACE_PATH + "/slam_data/trajectory/ground_truth.txt"))
+            return false;
+        if(!FileManager::CreateFile(laser_odom, WORK_SPACE_PATH + "/slam_data/trajectory/laser_odom.txt"))
+            return false;
+        is_file_created = true;
+    }
+
+    for(int i = 0; i < 3; ++i) {
+        for(int j = 0; j < 4; ++j) {
+            ground_truth << this->gnss_odometry_(i, j);
+            laser_odom << this->laser_odometry_(i, j);
+            if(i == 2 && j == 3) {
+                ground_truth << std::endl;
+                laser_odom << std::endl;
+            } else {
+                ground_truth << " ";
+                laser_odom << " ";
+            }
+        }
     }
 
     return true;

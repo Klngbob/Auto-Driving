@@ -30,6 +30,7 @@ bool IMUData::SyncData(std::deque<IMUData>& UnsyncedData, std::deque<IMUData>& S
             UnsyncedData.pop_front();
             break;
         }
+        break;
     }
     if(UnsyncedData.size() < 2)
         return false;

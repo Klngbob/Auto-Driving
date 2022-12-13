@@ -10,6 +10,7 @@
 #include <glog/logging.h>
 
 #include "lidar_localization/global_definition/global_definition.h"
+#include "lidar_localization/tools/file_manager.hpp"
 
 namespace lidar_localization {
 FrontEnd::FrontEnd()
@@ -50,18 +51,14 @@ bool FrontEnd::InitDataPath(const YAML::Node& config_node) {
         boost::filesystem::remove_all(this->data_path_);
     }
 
-    boost::filesystem::create_directory(this->data_path_);
-    if(!boost::filesystem::is_directory(this->data_path_)) {
-        LOG(WARNING) << "文件夹" << this->data_path_ << "未创建成功!";
+    if(!FileManager::CreateDirectory(this->data_path_)) {
         return false;
     } else {
         LOG(INFO) << "地图点云存放地址："  << this->data_path_;
     }
 
     std::string key_frame_path = this->data_path_ + "/key_frames";
-    boost::filesystem::create_directory(key_frame_path);
-    if(!boost::filesystem::is_directory(key_frame_path)) {
-        LOG(WARNING) << "文件夹" << key_frame_path << "未创建成功!";
+    if(!FileManager::CreateDirectory(key_frame_path)) {
         return false;
     } else {
         LOG(INFO) << "关键帧点云存放地址："  << key_frame_path << std::endl << std::endl;

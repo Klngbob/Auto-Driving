@@ -32,6 +32,7 @@ class FrontEndFlow {
         bool UpdateGNSSOdometry();
         bool UpdateLaserOdometry();
         bool PublishData();
+        bool SaveTrajectory();
     
     private:
         // 所有通用变量放在头文件里作为类成员变量

@@ -42,6 +42,7 @@ bool GNSSData::SyncData(std::deque<GNSSData>& UnsyncedData, std::deque<GNSSData>
             UnsyncedData.pop_front();
             break;
         }
+        break;
     }
     if(UnsyncedData.size() < 2)
         return false;

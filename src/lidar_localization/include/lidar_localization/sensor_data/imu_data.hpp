@@ -28,7 +28,7 @@ class IMUData {
                 double w = 0.0;
             public:
                 void Normalize() {
-                    double norm = sqrt(pow(x, 2.0) + pow(y, 2.0) + pow(z, 2.0));
+                    double norm = sqrt(pow(x, 2.0) + pow(y, 2.0) + pow(z, 2.0) + pow(w, 2.0));
                     x /= norm;
                     y /= norm;
                     z /= norm;

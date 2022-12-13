@@ -1,0 +1,23 @@
+Log file created at: 2022/12/12 17:51:49
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20221212 17:51:49.540243 26348 front_end.cpp:58] 地图点云存放地址：/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data
+I20221212 17:51:49.541450 26348 front_end.cpp:67] 关键帧点云存放地址：/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data/key_frames
+
+I20221212 17:51:49.541482 26348 front_end.cpp:75] 点云匹配方式为：NDT
+I20221212 17:51:49.541726 26348 ndt_registation.cpp:31] NDT 的匹配参数为: 
+res: 1, step_size: 0.1, trans_eps: 0.01, max_iter: 30
+
+I20221212 17:51:49.541770 26348 front_end.cpp:89] local_map选择的滤波方法为：voxel_filter
+I20221212 17:51:49.541788 26348 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.6, 0.6, 0.6
+
+I20221212 17:51:49.541797 26348 front_end.cpp:89] frame选择的滤波方法为：voxel_filter
+I20221212 17:51:49.541808 26348 voxel_filter.cpp:30] Voxel Filter的参数为: 
+1.3, 1.3, 1.3
+
+I20221212 17:51:49.541817 26348 front_end.cpp:89] display选择的滤波方法为：voxel_filter
+I20221212 17:51:49.541865 26348 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+
