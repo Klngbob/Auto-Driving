@@ -1,0 +1,16 @@
+Log file created at: 2023/01/03 15:40:18
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20230103 15:40:18.894011  9442 viewer.cpp:54] viewer_frame选择的滤波方法为：voxel_filter
+I20230103 15:40:18.894872  9442 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+
+I20230103 15:40:18.894912  9442 viewer.cpp:54] viewer_local_map选择的滤波方法为：voxel_filter
+I20230103 15:40:18.894929  9442 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+
+I20230103 15:40:18.894954  9442 viewer.cpp:54] viewer_global_map选择的滤波方法为：voxel_filter
+I20230103 15:40:18.894968  9442 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+

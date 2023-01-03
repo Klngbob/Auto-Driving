@@ -2,8 +2,8 @@
 * 在ros中发布里程计信息
 */
 
-#ifndef LIDAR_LOCALIZATION_SENSOR_DATA_ODOMETRY_PUBLISHER_HPP_
-#define LIDAR_LOCALIZATION_SENSOR_DATA_ODOMETRY_PUBLISHER_HPP_
+#ifndef LIDAR_LOCALIZATION_PUBLISHER_ODOMETRY_PUBLISHER_HPP_
+#define LIDAR_LOCALIZATION_PUBLISHER_ODOMETRY_PUBLISHER_HPP_
 
 #include <string>
 
@@ -22,6 +22,12 @@ class OdometryPublisher {
         OdometryPublisher() = default;
     
         void Publish(const Eigen::Matrix4f& transform_matrix);
+        void Publish(const Eigen::Matrix4f& transform_matrix, double time);
+
+        bool HasSubscribers();
+
+    private:
+        void PublishData(const Eigen::Matrix4f& transform_matrix, ros::Time time);
 
     private:
         ros::NodeHandle nh_;

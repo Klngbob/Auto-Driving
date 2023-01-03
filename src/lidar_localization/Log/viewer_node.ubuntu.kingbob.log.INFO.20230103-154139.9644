@@ -1,0 +1,19 @@
+Log file created at: 2023/01/03 15:41:39
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20230103 15:41:39.515136  9644 file_manager.cpp:23] 点云地图文件存放地址: 
+/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data/map
+
+I20230103 15:41:39.515450  9644 viewer.cpp:54] viewer_frame选择的滤波方法为：voxel_filter
+I20230103 15:41:39.515482  9644 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+
+I20230103 15:41:39.515537  9644 viewer.cpp:54] viewer_local_map选择的滤波方法为：voxel_filter
+I20230103 15:41:39.515553  9644 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+
+I20230103 15:41:39.515583  9644 viewer.cpp:54] viewer_global_map选择的滤波方法为：voxel_filter
+I20230103 15:41:39.515599  9644 voxel_filter.cpp:30] Voxel Filter的参数为: 
+0.5, 0.5, 0.5
+

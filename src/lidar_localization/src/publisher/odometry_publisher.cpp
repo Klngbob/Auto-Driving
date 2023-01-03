@@ -33,4 +33,31 @@ void OdometryPublisher::Publish(const Eigen::Matrix4f& transform_matrix) {
     
     this->publisher_.publish(this->odometry_);
 }
+
+void OdometryPublisher::Publish(const Eigen::Matrix4f& transform_matrix, double time) {
+    ros::Time ros_time((float) time);
+    this->PublishData(transform_matrix, ros_time);
+}
+
+void OdometryPublisher::PublishData(const Eigen::Matrix4f& transform_matrix, ros::Time time) {
+    this->odometry_.header.stamp = time;
+
+    // 设置position
+    this->odometry_.pose.pose.position.x = transform_matrix(0, 3);
+    this->odometry_.pose.pose.position.y = transform_matrix(1, 3);
+    this->odometry_.pose.pose.position.z = transform_matrix(2, 3);
+
+    Eigen::Quaternionf q;
+    q = transform_matrix.block<3, 3>(0, 0);
+    this->odometry_.pose.pose.orientation.x = q.x();
+    this->odometry_.pose.pose.orientation.y = q.y();
+    this->odometry_.pose.pose.orientation.z = q.z();
+    this->odometry_.pose.pose.orientation.w = q.w();
+    
+    this->publisher_.publish(this->odometry_);
+}
+
+bool OdometryPublisher::HasSubscribers() {
+    return this->publisher_.getNumSubscribers() != 0;
+}
 }

@@ -17,6 +17,16 @@ bool FileManager::CreateFile(std::ofstream& ofs, std::string file_path) {
     return true;
 }
 
+bool FileManager::InitDirectory(std::string directory_path, std::string use_for) {
+    if(boost::filesystem::is_directory(directory_path)) {
+        boost::filesystem::remove_all(directory_path + "/tail");
+        LOG(INFO) << use_for << "存放地址: " << std::endl << directory_path << std::endl << std::endl;
+        return true;
+    }
+
+    return CreateDirectory(directory_path, use_for);
+}
+
 bool FileManager::CreateDirectory(std::string directory_path) {
     if(!boost::filesystem::is_directory(directory_path)) {
         boost::filesystem::create_directory(directory_path);
@@ -28,4 +38,17 @@ bool FileManager::CreateDirectory(std::string directory_path) {
 
     return true;
 }
+
+bool FileManager::CreateDirectory(std::string directory_path, std::string use_for) {
+    if(!boost::filesystem::is_directory(directory_path)) {
+        boost::filesystem::create_directory(directory_path);
+    }
+    if(!boost::filesystem::is_directory(directory_path)) {
+        LOG(WARNING) << "无法创建文件夹: " << std::endl <<directory_path << std::endl << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
 }

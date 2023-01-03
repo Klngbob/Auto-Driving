@@ -2,8 +2,8 @@
 * 在ros中发布点云
 */
 
-#ifndef LIDAR_LOCALIZATION_SENSOR_DATA_CLOUD_PUBLISHER_HPP_
-#define LIDAR_LOCALIZATION_SENSOR_DATA_CLOUD_PUBLISHER_HPP_
+#ifndef LIDAR_LOCALIZATION_PUBLISHER_CLOUD_PUBLISHER_HPP_
+#define LIDAR_LOCALIZATION_PUBLISHER_CLOUD_PUBLISHER_HPP_
 
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl/point_types.h>
@@ -17,10 +17,16 @@ class CloudPublisher {
     public:
         CloudPublisher(ros::NodeHandle& nh,
                        std::string topic_name,
-                       size_t buff_size,
-                       std::string frame_id);
+                       std::string frame_id,
+                       size_t buff_size);
         CloudPublisher() = default;
         void Publish(CloudData::CLOUD_PTR cloud_ptr_input);
+        void Publish(CloudData::CLOUD_PTR cloud_ptr_input, double time);
+
+        bool HasSubscribers();
+    
+    private:
+        void PublishData(CloudData::CLOUD_PTR& cloud_ptr_input, ros::Time time);
 
     private:
         ros::NodeHandle nh_;

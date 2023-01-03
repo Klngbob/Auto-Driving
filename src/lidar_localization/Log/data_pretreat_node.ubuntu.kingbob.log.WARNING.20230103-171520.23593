@@ -1,0 +1,5 @@
+Log file created at: 2023/01/03 17:15:20
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+W20230103 17:15:20.208750 23593 data_pretreat_flow.cpp:163] Publishing Data 

@@ -1,0 +1,10 @@
+Log file created at: 2023/01/03 16:46:26
+Running on machine: ubuntu
+Running duration (h:mm:ss): 0:00:00
+Log line format: [IWEF]yyyymmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I20230103 16:46:26.641966 19042 file_manager.cpp:23] 关键帧点云存放地址: 
+/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data/key_frames
+
+I20230103 16:46:26.642340 19042 file_manager.cpp:23] 轨迹文件存放地址: 
+/home/kingbob/projects/Auto-Driving/src/lidar_localization/slam_data/trajectory
+
