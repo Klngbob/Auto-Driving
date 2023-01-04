@@ -26,6 +26,9 @@ void CloudPublisher::Publish(CloudData::CLOUD_PTR cloud_ptr_input, double time) 
 void CloudPublisher::PublishData(CloudData::CLOUD_PTR& cloud_ptr_input, ros::Time time) {
     sensor_msgs::PointCloud2Ptr cloud_ptr_output(new sensor_msgs::PointCloud2());
     printf("toROSMsg...\n");
+    printf("点云宽度width: %u", cloud_ptr_input->width);
+    printf("点云高度height: %u", cloud_ptr_input->height);
+    printf("点云size: %u", cloud_ptr_input->size());
     pcl::toROSMsg(*cloud_ptr_input, *cloud_ptr_output); // 转换成ros中的点云数据格式
     printf("toROSMsg done\n");
     cloud_ptr_output->header.stamp = time;

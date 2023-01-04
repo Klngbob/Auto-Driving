@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(lidar_localization)
 
-SET(CMAKE_BUILD_TYPE "Release")
-SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+SET(CMAKE_BUILD_TYPE "Debug")
+SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb")
 add_compile_options(-std=c++14)
 add_definitions(-std=c++14)
 

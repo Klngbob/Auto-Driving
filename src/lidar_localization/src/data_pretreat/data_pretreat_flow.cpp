@@ -45,6 +45,7 @@ bool DataPretreatFlow::Run() {
 bool DataPretreatFlow::ReadData() {
     // 订阅并解析数据集中的数据
     this->cloud_sub_ptr_->ParseData(this->cloud_data_buff_);
+    // printf("cloud data buff size: %u\n", this->cloud_data_buff_.size());
 
     static std::deque<IMUData> unsynced_imu_;
     static std::deque<VelocityData> unsynced_vel_;
@@ -110,6 +111,7 @@ bool DataPretreatFlow::HasData() {
 bool DataPretreatFlow::ValidData() {
     // 剔除无效数据
     this->current_cloud_data_ = this->cloud_data_buff_.front();
+    printf("current cloud data size() %u\n", this->current_cloud_data_.cloud_ptr->size());
     this->current_imu_data_ = this->imu_data_buff_.front();
     this->current_GNSS_data_ = this->gnss_data_buff_.front();
     this->current_velocity_data_ = this->velocity_data_buff_.front();

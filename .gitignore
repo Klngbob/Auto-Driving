@@ -35,3 +35,4 @@
 /build
 .vscode
 **/slam_data/
+**/Log/
